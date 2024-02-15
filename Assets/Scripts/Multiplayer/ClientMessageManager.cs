@@ -1,5 +1,6 @@
 using RiptideNetworking;
 using RiptideNetworking.Utils;
+using System;
 using UnityEngine;
 
 public class ClientMessageManager : MonoBehaviour
@@ -72,6 +73,7 @@ public class ClientMessageManager : MonoBehaviour
         string content = message.GetString();
         Debug.Log($"{content} was received by the Server");
         UIManager.Singleton.DisplayMessage(content);
+        GameObject.Find("AudioPlayer").GetComponent<audioManager>().addAudio(content);
     }
 
     [MessageHandler((ushort)ServerToClientId.intMessage)]

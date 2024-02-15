@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class audioManager : MonoBehaviour
@@ -11,11 +12,11 @@ public class audioManager : MonoBehaviour
     [SerializeField] float noiseVolume;
     [SerializeField] float audioVolume;
     public AudioSource audiosource;
-    public AudioClip[] clips;
-    public AudioClip[] currentPlaylist;
+    public List<AudioClip> currentPlaylist = new List<AudioClip>();
     public bool canPlay;
 
-    public enum soundTypes {
+    public enum soundTypes
+    {
     }
 
     // Start is called before the first frame update
@@ -31,29 +32,28 @@ public class audioManager : MonoBehaviour
         bool playNoise = false;
         if (canPlay)
         {
-            if (!audiosource.isPlaying && currentPlaylist.Length > 0 )
+            if (!audiosource.isPlaying && currentPlaylist.Count > 0)
             {
                 audiosource.PlayOneShot(currentPlaylist[0]);
-                currentPlaylist = currentPlaylist.Skip(1).ToArray();
-
+                currentPlaylist.RemoveAt(0); // Remove the first element after playing it
             }
-            audioVolume = audioVolume + (0.02f * Time.deltaTime);
+            audioVolume = audioVolume + (0.1f * Time.deltaTime);
         }
         else
         {
-            audioVolume = audioVolume - (0.02f * Time.deltaTime);
-            if (currentPlaylist.Length > 0 || audiosource.isPlaying)
+            audioVolume = audioVolume - (0.1f * Time.deltaTime);
+            if (currentPlaylist.Count > 0 || audiosource.isPlaying)
             {
                 playNoise = true;
             }
         }
         if (playNoise)
         {
-            noiseVolume = noiseVolume + (0.02f*Time.deltaTime);
+            noiseVolume = noiseVolume + (0.1f*Time.deltaTime);
         }
         else
         {
-            noiseVolume = noiseVolume - (0.02f*Time.deltaTime);
+            noiseVolume = noiseVolume - (0.1f*Time.deltaTime);
         }
         noiseVolume = Mathf.Clamp(noiseVolume, 0f, 1f);
         audioVolume = Mathf.Clamp(audioVolume, 0f, 1f);
@@ -63,13 +63,16 @@ public class audioManager : MonoBehaviour
 
     public void addAudio(string path)
     {
-        string p = Path.Combine(Application.dataPath,"audio/"+path);
-        WWW clipPath = new WWW(p);
-        print(clipPath);  //It displays a correct path but puts a back slash \ before the Audio folder.
-                          //When I put a forward slash / before the Audio folder in the string, print only returns the path from the Audio folder onward.
-        AudioClip audioClip = clipPath.GetAudioClip();
-
-        currentPlaylist.Append(audioClip);
+        AudioClip clip = Resources.Load<AudioClip>("Assets/audio/" + path + ".wav");
+        if (clip != null)
+        {
+            Debug.Log(clip);
+            currentPlaylist.Add(clip);
+        }
+        else
+        {
+            Debug.LogError("Failed to load clip at path: " + path);
+        }
     }
 
 

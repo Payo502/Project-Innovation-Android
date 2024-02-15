@@ -50,16 +50,13 @@ public class NetworkManager : MonoBehaviour
 
     [SerializeField] private string ip;
     [SerializeField] private ushort port;
-    [SerializeField] private TextMeshProUGUI errortext;
 
 
-    void LogError(string str)
-    {
-        errortext.text = str;
+    void logerror() { 
     }
     private void Start()
     {
-        RiptideLogger.Initialize(LogError, LogError, LogError, LogError, false);
+        RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
 
         Client = new Client();
         Client.Connected += DidConnect;
