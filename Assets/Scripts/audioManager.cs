@@ -42,11 +42,12 @@ public class audioManager : MonoBehaviour
         bool playNoise = false;
         if (canPlay)
         {
+            if (!audiosource.isPlaying && lastPlayedClip != "") { GameObject.Find("NetworkManager").GetComponent<ClientMessageManager>().SendStringMessagesToServer(ClientToServerId.stringMessage, lastPlayedClip); lastPlayedClip = ""; }
             if (!audiosource.isPlaying && currentPlaylist.Count > 0)
             {
                 audiosource.PlayOneShot(currentPlaylist[0]);
                 currentPlaylist.RemoveAt(0);
-                if (lastPlayedClip != "") { GameObject.Find("NetworkManager").GetComponent<ClientMessageManager>().SendStringMessagesToServer(ClientToServerId.stringMessage, lastPlayedClip); }
+                if (lastPlayedClip != "") { }
             }
             audioVolume = audioVolume + (0.4f * Time.deltaTime);
         }
