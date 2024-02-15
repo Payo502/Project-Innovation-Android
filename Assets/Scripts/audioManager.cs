@@ -25,6 +25,7 @@ public class audioManager : MonoBehaviour
     private List<NamedAudioClip> namedAudioClips = new List<NamedAudioClip>();
     public List<AudioClip> currentPlaylist = new List<AudioClip>();
     public bool canPlay;
+    public string lastPlayedClip = "";
 
     public enum soundTypes
     {
@@ -45,12 +46,13 @@ public class audioManager : MonoBehaviour
             {
                 audiosource.PlayOneShot(currentPlaylist[0]);
                 currentPlaylist.RemoveAt(0);
+                if (lastPlayedClip != "") { GameObject.Find("NetworkManager").GetComponent<ClientMessageManager>().SendStringMessagesToServer(ClientToServerId.stringMessage, lastPlayedClip); }
             }
-            audioVolume = audioVolume + (0.1f * Time.deltaTime);
+            audioVolume = audioVolume + (0.4f * Time.deltaTime);
         }
         else
         {
-            audioVolume = audioVolume - (0.1f * Time.deltaTime);
+            audioVolume = audioVolume - (0.4f * Time.deltaTime);
             if (currentPlaylist.Count > 0 || audiosource.isPlaying)
             {
                 playNoise = true;
@@ -58,11 +60,11 @@ public class audioManager : MonoBehaviour
         }
         if (playNoise)
         {
-            noiseVolume = noiseVolume + (0.1f*Time.deltaTime);
+            noiseVolume = noiseVolume + (0.4f*Time.deltaTime);
         }
         else
         {
-            noiseVolume = noiseVolume - (0.1f*Time.deltaTime);
+            noiseVolume = noiseVolume - (0.4f*Time.deltaTime);
         }
         noiseVolume = Mathf.Clamp(noiseVolume, 0f, 1f);
         audioVolume = Mathf.Clamp(audioVolume, 0f, 1f);
@@ -78,7 +80,9 @@ public class audioManager : MonoBehaviour
         if (namedClip.clip != null)
         {
             Debug.Log("Adding clip: " + namedClip.name);
-            audiosource.PlayOneShot(namedClip.clip);
+            currentPlaylist.Add(namedClip.clip);
+            Debug.Log(currentPlaylist.Count);
+            lastPlayedClip = namedClip.name;
         }
         else
         {
