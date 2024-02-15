@@ -5,6 +5,7 @@ public class PhoneController : MonoBehaviour
     [SerializeField] private float pickupThreshold = 20f;
     private bool lastPickedupFrame = false;
     private Vector3 initialEulerAngles;
+    [SerializeField] private audioManager audioManager;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class PhoneController : MonoBehaviour
                 Debug.Log($"Phone Picked Up: {isPickedup}");
                 ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessage, isPickedup);
                 lastPickedupFrame = isPickedup;
+                audioManager.canPlay = isPickedup;
             }
         }
     }

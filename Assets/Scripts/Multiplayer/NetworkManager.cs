@@ -1,7 +1,9 @@
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using System;
+using TMPro;
 using UnityEngine;
+
 
 public enum ClientToServerId : ushort
 {
@@ -22,6 +24,7 @@ public enum ServerToClientId : ushort
 public class NetworkManager : MonoBehaviour
 {
     private static NetworkManager _singleton;
+
 
     public static NetworkManager Singleton
     {
@@ -47,10 +50,16 @@ public class NetworkManager : MonoBehaviour
 
     [SerializeField] private string ip;
     [SerializeField] private ushort port;
+    [SerializeField] private TextMeshProUGUI errortext;
 
+
+    void LogError(string str)
+    {
+        errortext.text = str;
+    }
     private void Start()
     {
-        RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
+        RiptideLogger.Initialize(LogError, LogError, LogError, LogError, false);
 
         Client = new Client();
         Client.Connected += DidConnect;
@@ -86,5 +95,10 @@ public class NetworkManager : MonoBehaviour
     private void DidDisconnect(object sender, EventArgs e)
     {
         UIManager.Singleton.BackToMain();
+    }
+
+    public void ChangeIp(string str)
+    {
+        ip = str;
     }
 }
