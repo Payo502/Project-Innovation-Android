@@ -5,6 +5,15 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
+
+
+[Serializable]
+public struct NamedAudioClip
+{
+    public string name;
+    public AudioClip clip;
+}
 
 public class audioManager : MonoBehaviour
 {
@@ -12,6 +21,8 @@ public class audioManager : MonoBehaviour
     [SerializeField] float noiseVolume;
     [SerializeField] float audioVolume;
     public AudioSource audiosource;
+    [SerializeField]
+    private List<NamedAudioClip> namedAudioClips = new List<NamedAudioClip>();
     public List<AudioClip> currentPlaylist = new List<AudioClip>();
     public bool canPlay;
 
@@ -19,14 +30,12 @@ public class audioManager : MonoBehaviour
     {
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         noiseVolume = 0;
         audioVolume = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         bool playNoise = false;
@@ -35,7 +44,7 @@ public class audioManager : MonoBehaviour
             if (!audiosource.isPlaying && currentPlaylist.Count > 0)
             {
                 audiosource.PlayOneShot(currentPlaylist[0]);
-                currentPlaylist.RemoveAt(0); // Remove the first element after playing it
+                currentPlaylist.RemoveAt(0);
             }
             audioVolume = audioVolume + (0.1f * Time.deltaTime);
         }
@@ -61,20 +70,19 @@ public class audioManager : MonoBehaviour
         audiosource.volume = audioVolume;
     }
 
-    public void addAudio(string path)
+    public void addAudio(string name)
     {
-        AudioClip clip = Resources.Load<AudioClip>("Assets/audio/" + path + ".wav");
-        if (clip != null)
+        var namedClip = namedAudioClips.FirstOrDefault(nac => nac.name == name);
+
+
+        if (namedClip.clip != null)
         {
-            Debug.Log(clip);
-            currentPlaylist.Add(clip);
+            Debug.Log("Adding clip: " + namedClip.name);
+            audiosource.PlayOneShot(namedClip.clip);
         }
         else
         {
-            Debug.LogError("Failed to load clip at path: " + path);
+            Debug.LogError("Failed to find clip with name: " + name);
         }
     }
-
-
-
 }
