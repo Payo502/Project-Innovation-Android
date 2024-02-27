@@ -1,6 +1,7 @@
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide;
+using Riptide.Utils;
 using System;
+using System.Net;
 using TMPro;
 using UnityEngine;
 
@@ -66,7 +67,7 @@ public class NetworkManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Client.Tick();
+        Client.Update();
     }
 
     private void OnApplicationQuit()
@@ -76,7 +77,11 @@ public class NetworkManager : MonoBehaviour
 
     public void Connect()
     {
+/*        IPHostEntry host = Dns.GetHostEntry(ip);
+        Client.Connect($"{host.AddressList[0]}:{port}");*/
+
         Client.Connect($"{ip}:{port}");
+
     }
 
     private void DidConnect(object sender, EventArgs e)

@@ -1,5 +1,5 @@
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide;
+using Riptide.Utils;
 using System;
 using UnityEngine;
 
@@ -35,28 +35,28 @@ public class ClientMessageManager : MonoBehaviour
     /// <param name="messageContent">Content of the message</param>
     public void SendStringMessagesToServer(ClientToServerId messageId, string messageContent)
     {
-        Message message = Message.Create(MessageSendMode.reliable, (ushort)messageId);
+        Message message = Message.Create(MessageSendMode.Reliable, (ushort)messageId);
         message.AddString(messageContent);
         NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendIntMessagesToServer(ClientToServerId messageId, int messageContent)
     {
-        Message message = Message.Create(MessageSendMode.reliable, (ushort)messageId);
+        Message message = Message.Create(MessageSendMode.Reliable, (ushort)messageId);
         message.AddInt(messageContent);
         NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendFloatMessagesToServer(ClientToServerId messageId, float messageContent)
     {
-        Message message = Message.Create(MessageSendMode.reliable, (ushort)messageId);
+        Message message = Message.Create(MessageSendMode.Reliable, (ushort)messageId);
         message.AddFloat(messageContent);
         NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendBoolMessagesToServer(ClientToServerId messageId, bool messageContent)
     {
-        Message message = Message.Create(MessageSendMode.reliable, (ushort)messageId);
+        Message message = Message.Create(MessageSendMode.Reliable, (ushort)messageId);
         message.AddBool(messageContent);
         NetworkManager.Singleton.Client.Send(message);
     }
