@@ -13,6 +13,7 @@ public struct NamedAudioClip
 {
     public string name;
     public AudioClip clip;
+    public bool instant;
 }
 
 public class audioManager : MonoBehaviour
@@ -80,10 +81,17 @@ public class audioManager : MonoBehaviour
 
         if (namedClip.clip != null)
         {
-            Debug.Log("Adding clip: " + namedClip.name);
-            currentPlaylist.Add(namedClip.clip);
-            Debug.Log(currentPlaylist.Count);
-            lastPlayedClip = namedClip.name;
+            if (namedClip.instant)
+            {
+                audiosource.PlayOneShot(currentPlaylist[0]);
+            }
+            else
+            {
+                Debug.Log("Adding clip: " + namedClip.name);
+                currentPlaylist.Add(namedClip.clip);
+                Debug.Log(currentPlaylist.Count);
+                lastPlayedClip = namedClip.name;
+            }
         }
         else
         {
