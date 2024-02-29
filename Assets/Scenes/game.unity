@@ -3500,6 +3500,10 @@ PrefabInstance:
       propertyPath: noiseSource
       value: 
       objectReference: {fileID: 2090482905}
+    - target: {fileID: 5502723043969586854, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
+      propertyPath: currentPlaylist.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5502723043969586856, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
       propertyPath: m_RootOrder
       value: 5
