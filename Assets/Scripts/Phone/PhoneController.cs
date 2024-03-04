@@ -28,7 +28,7 @@ public class PhoneController : MonoBehaviour
             if (isPickedup != lastPickedupFrame)
             {
                 Debug.Log($"Phone Picked Up: {isPickedup}");
-                ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageDoor, isPickedup);
+                ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessagePhonePickedUp, isPickedup);
                 lastPickedupFrame = isPickedup;
                 audioManager.canPlay = isPickedup;
             }

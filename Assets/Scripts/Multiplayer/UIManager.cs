@@ -68,10 +68,7 @@ public class UIManager : MonoBehaviour
     {
         ClientMessageManager.Singleton.SendFloatMessagesToServer(ClientToServerId.floatMessage, floatMessage);
     }
-    public void BoolMessageClicked()
-    {
-        ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageDoor, boolMessage);
-    }
+
     public void DisplayMessage(object content)
     {
         if (messageToDisplay != null)

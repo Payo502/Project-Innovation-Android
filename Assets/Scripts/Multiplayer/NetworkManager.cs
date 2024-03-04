@@ -11,8 +11,9 @@ public enum ClientToServerId : ushort
     stringMessage = 1,
     floatMessage = 2,
     intMessage = 3,
-    boolMessageDoor = 4,
+    boolMessagePhonePickedUp = 4,
     boolMessageScream = 5,
+    boolMessageDoorOpen = 6,
 }
 
 public enum ServerToClientId : ushort
