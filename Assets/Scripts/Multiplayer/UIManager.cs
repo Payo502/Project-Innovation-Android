@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
     public void BoolMessageClicked()
     {
-        ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessage, boolMessage);
+        ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageDoor, boolMessage);
     }
     public void DisplayMessage(object content)
     {

@@ -617,6 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupThreshold: 20
+  audioManager: {fileID: 0}
 --- !u!4 &584107934
 Transform:
   m_ObjectHideFlags: 0

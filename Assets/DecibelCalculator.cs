@@ -63,7 +63,7 @@ public class DecibelCalculator : MonoBehaviour
                 StartCoroutine(ScreamCooldown());
 
                 // Change this to whatever we want to send
-                ClientMessageManager.Singleton.SendStringMessagesToServer(ClientToServerId.stringMessage, "I AM SCREAMING!!");
+                ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageScream, screamDetected);
             }
         }
     }
