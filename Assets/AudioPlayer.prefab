@@ -147,29 +147,23 @@ MonoBehaviour:
   audioVolume: 0
   audiosource: {fileID: 5502723043969586855}
   namedAudioClips:
-  - name: tape1
-    clip: {fileID: 8300000, guid: 57c20974f26f38f438361fa9d5b92eef, type: 3}
+  - name: Opening
+    clip: {fileID: 8300000, guid: f0a086e0f8b972741ac4c999fc4964ed, type: 3}
     instant: 0
-  - name: tape2
-    clip: {fileID: 8300000, guid: 57da228845d3c95429e073cd630df27e, type: 3}
+  - name: Arrived
+    clip: {fileID: 8300000, guid: 567d3b0f0287b8c4fbd1075313640e3e, type: 3}
     instant: 0
-  - name: complication
-    clip: {fileID: 8300000, guid: 2b10c768eabf8f24bab30c6e2cb56ee9, type: 3}
+  - name: Doors Stuck
+    clip: {fileID: 8300000, guid: 02d4c8eb673a1c04b8fde84681f5631b, type: 3}
     instant: 0
-  - name: final_mission
-    clip: {fileID: 8300000, guid: 48dd8effdd882ee4189239a2a7cd5e67, type: 3}
+  - name: Listen
+    clip: {fileID: 8300000, guid: 871a3b32e1950d94cbba6f104b4122af, type: 3}
     instant: 0
-  - name: first_brief
-    clip: {fileID: 8300000, guid: 2cf8412b6d6217b4cb46acf827f4fb80, type: 3}
+  - name: Guard
+    clip: {fileID: 8300000, guid: 2f36ea6d73ea1e9468a05467ea682ce7, type: 3}
     instant: 0
-  - name: guard1_first
-    clip: {fileID: 8300000, guid: b1784d00304e17f4cbf59fd3441de072, type: 3}
-    instant: 0
-  - name: listening_pda
-    clip: {fileID: 8300000, guid: 0aadbe808b79daf4598b8bd3e775aa99, type: 3}
-    instant: 0
-  - name: no_direct_input
-    clip: {fileID: 8300000, guid: f7b6f1f07f6567a4e9635b28c0066785, type: 3}
+  - name: Direct
+    clip: {fileID: 8300000, guid: 01bf75f6f25e84d48925d5945d626bf3, type: 3}
     instant: 0
   currentPlaylist: []
   canPlay: 0
