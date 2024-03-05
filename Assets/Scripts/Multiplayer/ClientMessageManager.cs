@@ -72,7 +72,7 @@ public class ClientMessageManager : MonoBehaviour
     {
         string content = message.GetString();
         Debug.Log($"{content} was received by the Server");
-        UIManager.Singleton.DisplayMessage(content);
+        UIManager.Singleton.DisplayAudioText(content);
         GameObject.Find("AudioPlayer").GetComponent<audioManager>().addAudio(content);
     }
 
@@ -81,7 +81,7 @@ public class ClientMessageManager : MonoBehaviour
     {
         int content = message.GetInt();
         Debug.Log($"{content} was received by the Server");
-        UIManager.Singleton.DisplayMessage(content);
+        UIManager.Singleton.DisplayAudioText(content);
     }
 
     [MessageHandler((ushort)ServerToClientId.floatMessage)]
@@ -89,7 +89,7 @@ public class ClientMessageManager : MonoBehaviour
     {
         float content = message.GetFloat();
         Debug.Log($"{content} was received by the Server");
-        UIManager.Singleton.DisplayMessage(content);
+        UIManager.Singleton.DisplayFrequencyNumber(content);
     }
 
     [MessageHandler((ushort)ServerToClientId.boolMessage)]
@@ -97,7 +97,7 @@ public class ClientMessageManager : MonoBehaviour
     {
         bool content = message.GetBool();
         Debug.Log($"{content} was received by the Server");
-        UIManager.Singleton.DisplayMessage(content);
+        UIManager.Singleton.DisplayAudioText(content);
     }
     #endregion
 }

@@ -29,13 +29,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Received Message")]
     [SerializeField] private GameObject sendMessageUI;
-    [SerializeField] private TextMeshProUGUI messageToDisplay;
-
-    [Header("Test Message To Send")]
-    [SerializeField] private string stringMessage;
-    [SerializeField] private int intMessage;
-    [SerializeField] private float floatMessage;
-    [SerializeField] private bool boolMessage;
+    [SerializeField] private TextMeshProUGUI frequencyNumber;
+    [SerializeField] private TextMeshProUGUI audioText;
 
     private void Awake()
     {
@@ -55,25 +50,23 @@ public class UIManager : MonoBehaviour
         connectUI.SetActive(true);
         sendMessageUI.SetActive(false);
     }
-
-    public void StringMessageClicked()
+    public void DisplayFrequencyNumber(object content)
     {
-        ClientMessageManager.Singleton.SendStringMessagesToServer(ClientToServerId.stringMessage, stringMessage);
-    }
-    public void IntMessageClicked()
-    {
-        ClientMessageManager.Singleton.SendIntMessagesToServer(ClientToServerId.intMessage, intMessage);
-    }
-    public void FloatMessageClicked()
-    {
-        ClientMessageManager.Singleton.SendFloatMessagesToServer(ClientToServerId.floatMessage, floatMessage);
-    }
-
-    public void DisplayMessage(object content)
-    {
-        if (messageToDisplay != null)
+        if (frequencyNumber != null)
         {
-            messageToDisplay.text = content.ToString();
+            frequencyNumber.text = content.ToString();
+        }
+        else
+        {
+            Debug.LogWarning("Message display component not set in UIManager");
+        }
+    }
+
+    public void DisplayAudioText(object content)
+    {
+        if (audioText != null)
+        {
+            audioText.text = content.ToString();
         }
         else
         {
