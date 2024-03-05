@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735cdd51483724e45b1217db68e7ba66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  micSensitivity: 0.4
+  micSensitivity: 0.15
   cooldownTime: 1
 --- !u!1 &724998663
 GameObject:

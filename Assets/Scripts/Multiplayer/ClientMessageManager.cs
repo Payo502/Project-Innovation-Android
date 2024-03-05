@@ -2,10 +2,13 @@ using Riptide;
 using Riptide.Utils;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ClientMessageManager : MonoBehaviour
 {
     private static ClientMessageManager _singleton;
+
+    public static event Action DoorsStuckEvent;
 
     public static ClientMessageManager Singleton
     {
@@ -74,6 +77,11 @@ public class ClientMessageManager : MonoBehaviour
         Debug.Log($"{content} was received by the Server");
         UIManager.Singleton.DisplayAudioText(content);
         GameObject.Find("AudioPlayer").GetComponent<audioManager>().addAudio(content);
+
+        if (content == "Doors Stuck")
+        {
+            DoorsStuckEvent?.Invoke();
+        }
     }
 
     [MessageHandler((ushort)ServerToClientId.intMessage)]
