@@ -7,10 +7,19 @@ public class PhoneController : MonoBehaviour
     private Vector3 initialEulerAngles;
     [SerializeField] private audioManager audioManager;
 
+    bool eventReceived = false;
+
     private void Start()
     {
         Input.gyro.enabled = true;
         CalibratePhone();
+
+        ClientMessageManager.DoorsStuckEvent += ClientMessageManager_DoorsStuckEvent;
+    }
+
+    private void ClientMessageManager_DoorsStuckEvent()
+    {
+        eventReceived = true;
     }
 
     private void Update()
@@ -27,8 +36,19 @@ public class PhoneController : MonoBehaviour
 
             if (isPickedup != lastPickedupFrame)
             {
+                if (eventReceived)
+                {
+                    // Event has been triggered, send a different bool message
+                    eventReceived = false;
+                    ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageDoorOpen, isPickedup);
+                }
+                else
+                {
+                    // Event has not been triggered, send the normal bool message
+                    ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessagePhonePickedUp, isPickedup);
+                }
+
                 Debug.Log($"Phone Picked Up: {isPickedup}");
-                ClientMessageManager.Singleton.SendBoolMessagesToServer(ClientToServerId.boolMessageDoor, isPickedup);
                 lastPickedupFrame = isPickedup;
                 audioManager.canPlay = isPickedup;
             }

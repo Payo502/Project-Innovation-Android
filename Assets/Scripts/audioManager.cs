@@ -18,8 +18,11 @@ public struct NamedAudioClip
 public class audioManager : MonoBehaviour
 {
     [SerializeField] AudioSource noiseSource;
+    [SerializeField] GameObject LightObject;
     [SerializeField] float noiseVolume;
     [SerializeField] float audioVolume;
+    [SerializeField] float maxAudioVolume = 1f;
+    [SerializeField] float maxNoiseVolume = 0.5f;
     public AudioSource audiosource;
     [SerializeField]
     private List<NamedAudioClip> namedAudioClips = new List<NamedAudioClip>();
@@ -42,7 +45,7 @@ public class audioManager : MonoBehaviour
         bool playNoise = false;
         if (canPlay)
         {
-            if (!audiosource.isPlaying && lastPlayedClip != "") { GameObject.Find("NetworkManager").GetComponent<ClientMessageManager>().SendStringMessagesToServer(ClientToServerId.stringMessage, lastPlayedClip); lastPlayedClip = ""; }
+            if (!audiosource.isPlaying && lastPlayedClip != "") { ClientMessageManager.Singleton.SendStringMessagesToServer(ClientToServerId.stringMessage, lastPlayedClip); lastPlayedClip = ""; }
             if (!audiosource.isPlaying && currentPlaylist.Count > 0)
             {
                 audiosource.PlayOneShot(currentPlaylist[0]);
@@ -65,12 +68,22 @@ public class audioManager : MonoBehaviour
         }
         else
         {
-            noiseVolume = noiseVolume - (0.4f*Time.deltaTime);
+            noiseVolume = noiseVolume - (0.8f*Time.deltaTime);
         }
-        noiseVolume = Mathf.Clamp(noiseVolume, 0f, 1f);
-        audioVolume = Mathf.Clamp(audioVolume, 0f, 1f);
+        noiseVolume = Mathf.Clamp(noiseVolume, 0f, maxNoiseVolume);
+        audioVolume = Mathf.Clamp(audioVolume, 0f, maxAudioVolume);
         noiseSource.volume = noiseVolume;
         audiosource.volume = audioVolume;
+
+        //light
+        if ((noiseVolume > 0f || audioVolume > 0f) && Mathf.Sin(Time.time/10f)>0)
+        {
+            LightObject.SetActive(true);
+        }
+        else
+        {
+            LightObject.SetActive(false);
+        }
     }
 
     public void addAudio(string name)
