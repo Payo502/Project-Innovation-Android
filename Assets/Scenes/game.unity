@@ -3353,6 +3353,18 @@ PrefabInstance:
       propertyPath: currentPlaylist.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5502723043969586854, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
+      propertyPath: namedAudioClips.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502723043969586854, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
+      propertyPath: namedAudioClips.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e4712dffd26faba4790addb4b0a4a61f, type: 3}
+    - target: {fileID: 5502723043969586854, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
+      propertyPath: namedAudioClips.Array.data[6].name
+      value: Final Monologue
+      objectReference: {fileID: 0}
     - target: {fileID: 5502723043969586856, guid: fc1f604411bb32a40b019d823d1c2052, type: 3}
       propertyPath: m_RootOrder
       value: 5
