@@ -1,8 +1,17 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class DecibelCalculator : MonoBehaviour
 {
+    [Header("UI Elements")]
+    [SerializeField] Slider audioSlider;
+    [SerializeField] TextMeshProUGUI micLoudnessText;
+
     public static float MicLoudness;
+
+    [Header("Microphone Settings")]
 
     [SerializeField] float micSensitivity;
     [SerializeField] float cooldownTime = 1f;
@@ -54,6 +63,11 @@ public class DecibelCalculator : MonoBehaviour
         if (!screamDetected)
         {
             MicLoudness = LevelMax();
+
+            audioSlider.value = MicLoudness;
+            Debug.Log($"Micloudness: {MicLoudness}");
+
+            micLoudnessText.text = MicLoudness.ToString();
 
             if (MicLoudness >= micSensitivity)
             {
