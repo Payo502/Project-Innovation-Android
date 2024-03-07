@@ -18,6 +18,7 @@ public struct NamedAudioClip
 public class audioManager : MonoBehaviour
 {
     [SerializeField] AudioSource noiseSource;
+    [SerializeField] GameObject LightObject;
     [SerializeField] float noiseVolume;
     [SerializeField] float audioVolume;
     [SerializeField] float maxAudioVolume = 1f;
@@ -73,6 +74,16 @@ public class audioManager : MonoBehaviour
         audioVolume = Mathf.Clamp(audioVolume, 0f, maxAudioVolume);
         noiseSource.volume = noiseVolume;
         audiosource.volume = audioVolume;
+
+        //light
+        if ((noiseVolume > 0f || audioVolume > 0f) && Mathf.Sin(Time.time/10f)>0)
+        {
+            LightObject.SetActive(true);
+        }
+        else
+        {
+            LightObject.SetActive(false);
+        }
     }
 
     public void addAudio(string name)
